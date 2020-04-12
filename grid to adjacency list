@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int n,m,q,s1,s2;
+	cin>>n>>m>>q;
+	char a[n][m];
+	vector<int > list[n*m+1];
+	int nx,ny;
+	int dx[4]={0,1,0,-1};
+	int dy[4]={1,0,-1,0};
+	/* entering the grid values O are accesible and X will be non accessible places*/
+	for(int i= 0 ; i<n ; i++)
+		for(int j=0 ; j<m ; j++)
+			cin>>a[i][j];
+/*printing the given grid*/
+for(int i= 0 ; i<n ; i++)
+		{for(int j=0 ; j<m ; j++)
+			cout<<a[i][j];
+		cout<<endl;}
+/*converion to adjacenccy list */
+	for(int i= 0 ; i<n ; i++)
+		for(int j=0 ; j<m ; j++){
+				if(a[i][j]=='O'){
+					for(int k=0; k<4 ; k++){
+						nx=i+dx[k];
+						ny=j+dy[k];
+						if(nx >=0 && ny >=0 && nx <n  && ny <m && a[nx][ny]=='O'){
+							int a,b;
+							a= i*m + j;   // this is the number of the index whose neighbours are being searched
+							b= nx*m + ny;    // neighbour of current index
+							list[a ].push_back(b);
+							//list[b].push_back(a);
+							cout<<"\ninserting"<<a<<" "<<b;
+						}
+					}
+
+				}
+				else{  // inserting -1 in the index which is not accessible ,which is having *.
+					list[i*m + j ].push_back(-1);
+					
+				}
+		}	
+cout<<endl;
+	for(int i= 0 ;i <m*n ;i++){
+		for(int j=0; j<list[i].size() ; j++)
+		cout<<list[i][j]<<"->";
+		cout<<"\n";
+	}
+
+	
+}
